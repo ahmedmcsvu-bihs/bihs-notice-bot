@@ -55,7 +55,7 @@ def process_notices():
     api_key = config['gemini_api_key']
 
     # فولڈر میں نئی تصاویر تلاش کریں
-    query = f"'{folder_id}' in parents and trashed = false and mimeType starts with 'image/'"
+    query = f"'{folder_id}' in parents and trashed = false and mimeType contains 'image/'"
     results = drive_service.files().list(q=query, fields="files(id, name)").execute()
     files = results.get('files', [])
 
