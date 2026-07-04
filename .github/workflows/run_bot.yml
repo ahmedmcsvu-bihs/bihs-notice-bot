@@ -1,0 +1,29 @@
+name: BIHS Notice Bot
+
+on:
+  schedule:
+    # یہ ٹائمر ہر 6 گھنٹے بعد خود بخود چلے گا (آپ اسے بدل بھی سکتے ہیں)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # یہ بٹن آپ کو مینوئل (اپنی مرضی سے فوراً) چلانے کی سہولت دے گا
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Notice Bot script
+      run: |
+        python notice_bot.py
